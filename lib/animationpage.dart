@@ -14,10 +14,11 @@ class _AnimationPageState extends State<AnimationPage>
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
     _sizeAnimation = Tween<double>(
       begin: 20,
-      end: 100,
+      end: 150,
     ).animate(_controller);
 
     // Start the animation
@@ -32,15 +33,16 @@ class _AnimationPageState extends State<AnimationPage>
       animation: _controller,
       builder: (context, child) {
         return Container(
-          height: _sizeAnimation.value,
-          width: _sizeAnimation.value,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(_sizeAnimation.value/2),
-            color: Colors.white,
-            // child: Icon(Icons.sunny),
-          ),
-
+          // height: _sizeAnimation.value,
+          // width: _sizeAnimation.value,
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(_sizeAnimation.value/2),
+          //   color: Colors.white,
+          // child: Icon(Icons.sunny),
+          child: Icon(Icons.sunny,size: _sizeAnimation.value,color: Colors.orange),
         );
+
+        // );
       },
     );
   }
