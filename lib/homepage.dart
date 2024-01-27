@@ -12,6 +12,11 @@ class _homepageState extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title:Text("A N I M A T I O N",style: TextStyle(color: Colors.white,fontSize:30),),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 102, 178, 240),
+      ),
       body: Stack(
         children: [
           Container(
@@ -24,7 +29,7 @@ class _homepageState extends State<homepage> {
                 ),
                     ),
           ),
-          SafeArea(child: Center(child: animationPage())),
+          SafeArea(child: Center(child: AnimationPage())),
         ],
       ),
     );

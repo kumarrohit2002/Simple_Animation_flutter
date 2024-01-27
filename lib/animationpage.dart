@@ -1,42 +1,53 @@
 import 'package:flutter/material.dart';
 
-class animationPage extends StatefulWidget {
-  const animationPage({super.key});
+class AnimationPage extends StatefulWidget {
+  const AnimationPage({Key? key}) : super(key: key);
 
   @override
-  State<animationPage> createState() => _animationPageState();
+  State<AnimationPage> createState() => _AnimationPageState();
 }
 
-class _animationPageState extends State<animationPage>
+class _AnimationPageState extends State<AnimationPage>
     with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _sizeAnimation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _sizeAnimation = Tween<double>(
+      begin: 20,
+      end: 100,
+    ).animate(_controller);
+
+    // Start the animation
+    _controller.forward();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    late AnimationController _controller;
-    late Animation<double> _sizeAnimation;
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Container(
+          height: _sizeAnimation.value,
+          width: _sizeAnimation.value,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(_sizeAnimation.value/2),
+            color: Colors.white,
+            // child: Icon(Icons.sunny),
+          ),
 
-    @override
-    void initState() {
-      _controller =
-          AnimationController(vsync: this, duration: Duration(seconds: 1));
-      _controller.addListener(() {
-        setState(() {});
-      });
-      _sizeAnimation = Tween<double>(
-        begin: 24,
-        end: 72,
-      ).animate(_controller);
-      _controller.forward();
-
-      super.initState();
-    }
-
-    return Container(
-      height: _sizeAnimation.value,
-      width: _sizeAnimation.value,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(_sizeAnimation.value/2),
-        color: Colors.white,
-      ),
+        );
+      },
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
